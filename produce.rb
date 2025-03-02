@@ -13,6 +13,7 @@ CSV.new($stdin, headers: true).each {|r|
   url = "#{API_SERVER}?format=ndgeojson&address=" + 
     "#{URI.encode_www_form_component(address)}"
   f = JSON.parse(URI.open(url).read)
+  f['geometry']['coordinates'].map! {|v| v + rand * 0.005}
   f['properties'] = {
     :address => f['properties']['output'],
     :被害者性別 => r['被害者性別'],
@@ -21,7 +22,9 @@ CSV.new($stdin, headers: true).each {|r|
     :被害者年代 => r['被害者年代'],
     :被害者学職別 => r['被害者学職別'],
     :被疑者の交通手段 => r['被疑者の交通手段'],
-    :事案名 => r['事案名']
+    :事案名 => r['事案名'],
+    'marker-color' => r['被害者性別'] == '女' ? '#ff0' : 
+      r['被害者性別'] == '男' ? '#0ff' : '#888'
   }
   print "#{JSON.dump(f)}\n"
 }
