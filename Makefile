@@ -9,5 +9,6 @@ stop:
 	abrg serve stop
 
 produce:
-	iconv -f CP932 $(SRC_PATH) | ruby produce.rb | ogr2ogr zencho.geojson /vsistdin/
+	iconv -f CP932 $(SRC_PATH) | ruby produce.rb | \
+	ogr2ogr zencho.geojson /vsistdin?buffer_limit=-1
 

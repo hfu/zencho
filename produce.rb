@@ -15,7 +15,13 @@ CSV.new($stdin, headers: true).each {|r|
   f = JSON.parse(URI.open(url).read)
   f['properties'] = {
     :address => f['properties']['output'],
-    :gender => r['被害者性別']
+    :被害者性別 => r['被害者性別'],
+    :発生曜日 => r['発生曜日'],
+    :発生時 => r['発生時'],
+    :被害者年代 => r['被害者年代'],
+    :被害者学職別 => r['被害者学職別'],
+    :被疑者の交通手段 => r['被疑者の交通手段'],
+    :事案名 => r['事案名']
   }
   print "#{JSON.dump(f)}\n"
 }
